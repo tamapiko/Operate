@@ -61,7 +61,6 @@
             color: #333;
         }
 
-        /* スライダーのスタイル */
         input[type="range"] {
             -webkit-appearance: none;
             appearance: none;
@@ -128,16 +127,23 @@
         document.getElementById('volumeSlider').addEventListener('input', function() {
             var volume = this.value;
             displayInstruction('音量を' + volume + '%に調整しました。');
+            // Bluetoothデバイスに音量調整の指示を送るコードを追加
         });
 
         document.getElementById('brightnessSlider').addEventListener('input', function() {
             var brightness = this.value;
             displayInstruction('明るさを' + brightness + '%に調整しました。');
+            // Bluetoothデバイスに明るさ調整の指示を送るコードを追加
         });
 
         function displayInstruction(instruction) {
             document.getElementById('instructionText').textContent = instruction;
         }
+
+        // Bluetoothデバイスとの通信を行うコードを追加
+        // 以下にWeb Bluetooth APIを使用するJavaScriptを記述
+        // 注意: Web Bluetooth APIは特定のブラウザでのみサポートされています（例: Chrome）
+        // ユーザーのデバイスがBluetoothをサポートしているかどうかを確認する必要があります
     </script>
 </body>
 </html>
