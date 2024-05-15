@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPad・iPhone操作サイト</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f7f7f7;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1em;
+            width: 100%;
+            text-align: center;
+        }
+
+        main {
+            padding: 2em;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        #actions {
+            margin-bottom: 2em;
+        }
+
+        button {
+            margin: 0.5em;
+            padding: 1em;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #instructions {
+            background-color: #fff;
+            padding: 1em;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        #instructionText {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        /* スライダーのスタイル */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            background: #4CAF50;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>iPad・iPhone操作ガイド</h1>
+    </header>
+    <main>
+        <section id="actions">
+            <h2>操作</h2>
+            <button id="homeButton">ホームボタン</button>
+            <button id="volumeUpButton">音量アップ</button>
+            <button id="volumeDownButton">音量ダウン</button>
+            <button id="powerButton">電源ボタン</button>
+        </section>
+        <section id="sliders">
+            <h2>調整</h2>
+            <label for="volumeSlider">音量:</label>
+            <input type="range" id="volumeSlider" min="0" max="100" value="50">
+            <label for="brightnessSlider">明るさ:</label>
+            <input type="range" id="brightnessSlider" min="0" max="100" value="50">
+        </section>
+        <section id="instructions">
+            <h2>指示</h2>
+            <p id="instructionText">ボタンを押してください。</p>
+        </section>
+    </main>
+    <script>
+        document.getElementById('homeButton').addEventListener('click', function() {
+            displayInstruction('ホームボタンを押しました。');
+        });
+
+        document.getElementById('volumeUpButton').addEventListener('click', function() {
+            displayInstruction('音量アップボタンを押しました。');
+        });
+
+        document.getElementById('volumeDownButton').addEventListener('click', function() {
+            displayInstruction('音量ダウンボタンを押しました。');
+        });
+
+        document.getElementById('powerButton').addEventListener('click', function() {
+            displayInstruction('電源ボタンを押しました。');
+        });
+
+        document.getElementById('volumeSlider').addEventListener('input', function() {
+            var volume = this.value;
+            displayInstruction('音量を' + volume + '%に調整しました。');
+        });
+
+        document.getElementById('brightnessSlider').addEventListener('input', function() {
+            var brightness = this.value;
+            displayInstruction('明るさを' + brightness + '%に調整しました。');
+        });
+
+        function displayInstruction(instruction) {
+            document.getElementById('instructionText').textContent = instruction;
+        }
+    </script>
+</body>
+</html>
