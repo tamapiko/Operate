@@ -2,41 +2,40 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Switch Controller Data</title>
+    <title>Device Motion</title>
 </head>
 <body>
-    <h1>Switchコントローラーデータ</h1>
-    <div id="gamepad-data"></div>
+    <h1>Device Motion Example</h1>
+    <p id="motion"></p>
 
     <script>
-        window.addEventListener("gamepadconnected", (event) => {
-            console.log("Gamepad connected:", event.gamepad);
-            updateGamepadData();
-        });
+        if (window.DeviceMotionEvent) {
+            window.addEventListener('devicemotion', function(event) {
+                const acceleration = event.acceleration; // デバイスの加速度 (重力除去)
+                const accelerationIncludingGravity = event.accelerationIncludingGravity; // 重力を含む加速度
+                const rotationRate = event.rotationRate; // 回転速度
 
-        window.addEventListener("gamepaddisconnected", (event) => {
-            console.log("Gamepad disconnected:", event.gamepad);
-        });
+                let motionData = `
+                    Acceleration (without gravity): 
+                    x: ${acceleration.x?.toFixed(2)}, 
+                    y: ${acceleration.y?.toFixed(2)}, 
+                    z: ${acceleration.z?.toFixed(2)}
+                    <br>
+                    Acceleration (with gravity): 
+                    x: ${accelerationIncludingGravity.x?.toFixed(2)}, 
+                    y: ${accelerationIncludingGravity.y?.toFixed(2)}, 
+                    z: ${accelerationIncludingGravity.z?.toFixed(2)}
+                    <br>
+                    Rotation Rate: 
+                    alpha: ${rotationRate.alpha?.toFixed(2)}, 
+                    beta: ${rotationRate.beta?.toFixed(2)}, 
+                    gamma: ${rotationRate.gamma?.toFixed(2)}
+                `;
 
-        function updateGamepadData() {
-            const gamepads = navigator.getGamepads();
-            for (const gamepad of gamepads) {
-                if (gamepad) {
-                    const dataDiv = document.getElementById("gamepad-data");
-
-                    // 加速度 (加速度センサーのデータ)
-                    const accel = gamepad.axes.slice(0, 3);
-                    // 角速度 (ジャイロスコープのデータ)
-                    const gyro = gamepad.axes.slice(3, 6);
-
-                    dataDiv.innerHTML = `
-                        <p>加速度 (x, y, z): ${accel.join(", ")}</p>
-                        <p>角速度 (x, y, z): ${gyro.join(", ")}</p>
-                    `;
-                }
-            }
-            requestAnimationFrame(updateGamepadData);
+                document.getElementById('motion').innerHTML = motionData;
+            });
+        } else {
+            document.getElementById('motion').innerText = 'DeviceMotionEvent はサポートされていません。';
         }
     </script>
 </body>
